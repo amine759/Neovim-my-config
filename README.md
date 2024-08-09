@@ -1,2 +1,2 @@
 # Neovim-my-config 
-Config from **NvChad**, refer to the [documentation](https://nvchad.com/docs/quickstart/install) to get started.
+My custom [NvChad](https://github.com/NvChad/NvChad) config for python, go, yaml, bash, C.
