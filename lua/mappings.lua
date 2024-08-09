@@ -1,4 +1,6 @@
 require "nvchad.mappings"
+local map = vim.keymap.set
+
 
 --based config
 vim.opt.autoindent = true
@@ -8,18 +10,11 @@ vim.opt.shiftwidth = 4      -- Size of an indent
 vim.opt.expandtab = true    -- Convert tabs to spaces
 
 vim.opt.clipboard = "unnamedplus"
-vim.api.nvim_set_keymap("n", "<leader>e", ":NvimTreeToggle<CR>", { noremap = true, silent = true })
-
-vim.api.nvim_set_keymap('n', '<leader>h', '<C-s>h', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>j', '<C-s>j', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>k', '<C-s>k', { noremap = true, silent = true })
-vim.api.nvim_set_keymap('n', '<leader>l', '<C-s>l', { noremap = true, silent = true })
-
-
-local map = vim.keymap.set
+map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>")
-
-
--- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
+-- Open a terminal in a horizontal split with <leader>t
+map('n', '<leader>t', ':split | terminal<CR>')
+-- Open a terminal in a vertical split with <leader>vt
+map('n', '<leader>vt', ':vsplit | terminal<CR>')
