@@ -28,7 +28,7 @@ return {
             end,
           },
          {
-            "nvim-treesitter/nvim-treesitter",
+                "nvim-treesitter/nvim-treesitter",
             opts = {
                   ensure_installed = {
                         "bash",
@@ -45,8 +45,10 @@ return {
                         "go"
             },
             highlight = {
-                            enable = true, -- false will disable the whole extension
+                enable = true, -- false will disable the whole extension
             },
         }
                 },
+  { import = "plugins.go" },
+  { import = "plugins.dap-python" },
 }

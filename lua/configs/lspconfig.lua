@@ -8,7 +8,18 @@ local capabilities = configs.capabilities
 local lspconfig = require "lspconfig"
 
 
-local servers = { "html", "cssls" }
+local servers = {
+  "bashls",
+  "cssls",
+  "html",
+  "clangd",
+  "hls",
+  "gopls",
+  "jsonls",
+  "pyright",
+  "somesass_ls",
+  "yamlls",
+}
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -20,14 +31,15 @@ for _, lsp in ipairs(servers) do
   }
 end
 
--- Without the loop, you would have to manually set up each LSP 
--- 
--- lspconfig.html.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
--- }
---
--- lspconfig.cssls.setup {
---   on_attach = on_attach,
---   capabilities = capabilities,
--- }
+ lspconfig.lua_ls.setup {
+      on_attach = on_attach,
+      capabilities = capabilities,
+      on_init = on_init,
+      settings = {
+        Lua = {
+          hint = { enable = true },
+          telemetry = { enable = false },
+          diagnostics = { globals = { "bit", "vim", "it", "describe", "before_each", "after_each" } },
+        },
+      },
+    }
