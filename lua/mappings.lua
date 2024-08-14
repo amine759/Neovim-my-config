@@ -7,8 +7,9 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4         -- Number of spaces that a <Tab> in the file counts for
 vim.opt.shiftwidth = 4      -- Size of an indent
 vim.opt.expandtab = true    -- Convert tabs to spaces
- 
 vim.opt.clipboard = "unnamedplus"
+vim.opt.signcolumn = "yes"
+
 map("n", "<leader>e", ":NvimTreeToggle<CR>")
 
 map("n", ";", ":", { desc = "CMD enter command mode" })
@@ -32,6 +33,10 @@ map("v", "<A-j>", ":m '>+1<CR>gv=gv", { desc = "Move line down" })
 map("v", "<A-Up>", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 
+-- Map Alt+Right Arrow to go to the end of the line
+map("n", "<A-Right>", "$", { desc = "Go to end of line" })
+map("n", "<A-Left>", "^", { desc = "Go to beginning of line"})
+
 -- Togglers
 map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle line number" })
 map("n", "<leader>ih", "<cmd>ToggleInlayHints<CR>", { desc = "Toggle inlay hints" })
@@ -52,3 +57,8 @@ end, { desc = "Term toggle horizontal split" })
 map({ "n", "t" }, "<A-t>", function()
   require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
 end, { desc = "Term toggle floating" })
+
+
+-- Configure key mappings for Scala import management
+vim.api.nvim_set_keymap('n', '<Leader>a', '<cmd>lua require("metals").import_all()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<Leader>r', '<cmd>lua require("metals").import_remove_unused()<CR>', { noremap = true, silent = true })
