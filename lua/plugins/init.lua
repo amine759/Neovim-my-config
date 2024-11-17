@@ -28,7 +28,7 @@ return {
       require("nvim-tree").setup {}
     end,
   },
-  {     
+  {
     "nvim-treesitter/nvim-treesitter",
     opts = {
       ensure_installed = {
@@ -50,6 +50,8 @@ return {
         enable = true, -- false will disable the whole extension
       },
     },
+    lazy = true,
+    event = { "BufReadPre", "BufNewFile" }, -- Load when a file is opened
   },
   { import = "plugins.go" },
   { import = "plugins.dap-python" },
