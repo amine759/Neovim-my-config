@@ -1,4 +1,8 @@
 return {
+    {
+    "nvim-neotest/nvim-nio",
+    lazy = true, -- Optionally add lazy loading if needed
+    },
   {
   "stevearc/conform.nvim",
     opts = {

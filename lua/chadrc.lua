@@ -33,4 +33,7 @@ M.lsp = {
         timeout_ms = 1000,      -- Timeout for formatting requests
     },
 }
+-- Load mappings from mappings.lua
+require("nvchad.mappings")  -- This will load the mappings file
+
 return M

@@ -17,7 +17,6 @@ return {
     -- Basic debugpy setup
     dap_py.setup(path)
     -- Configure test runner
-    dap_py.test_runner = "pytest"
     -- Enable virtual text
     require("nvim-dap-virtual-text").setup({
       enabled = true,
@@ -26,29 +25,6 @@ return {
       highlight_new_as_changed = true,
       show_stop_reason = true,
       commented = false,
-    })
-
-    -- Configure UI
-    dapui.setup({
-      layouts = {
-        {
-          elements = {
-            { id = "scopes", size = 0.5 },
-            { id = "breakpoints", size = 0.25 },
-            { id = "stacks", size = 0.25 },
-          },
-          position = "left",
-          size = 40
-        },
-        {
-          elements = {
-            { id = "repl", size = 0.5 },
-            { id = "console", size = 0.5 },
-          },
-          position = "bottom",
-          size = 10
-        },
-      },
     })
 
     -- Auto open/close DAP UI
@@ -105,8 +81,6 @@ return {
 
     -- Keymaps
     local map = vim.keymap.set
-    local opts = { noremap = true, silent = true }
-
     -- Debugging
     map("n", "<leader>pdb", dap.toggle_breakpoint, { desc = "Toggle Breakpoint" })
     map("n", "<leader>pdc", dap.continue, { desc = "Continue" })

@@ -1,6 +1,5 @@
-require "nvchad.mappings"
 local map = vim.keymap.set
-
+local opts = { noremap = true, silent = true }
 --based config
 vim.opt.autoindent = true
 
@@ -56,16 +55,52 @@ end, { desc = "Term toggle floating" })
 map("v", "<Tab>", ">gv", { desc = "Indent right" })
 map("v", "<S-Tab>", "<gv", { desc = "Indent left" })
 
--- Configure key mappings for Scala import management
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader>a",
-  '<cmd>lua require("metals").import_all()<CR>',
-  { noremap = true, silent = true }
-)
-vim.api.nvim_set_keymap(
-  "n",
-  "<Leader>r",
-  '<cmd>lua require("metals").import_remove_unused()<CR>',
-  { noremap = true, silent = true }
-)
+-- LSP mappings for various functionalities
+local function go_to_definition()
+  local success, result = pcall(vim.lsp.buf.definition)
+  if not success then
+    print("No definition found!")
+  end
+end
+
+local function show_hover()
+  local success, result = pcall(vim.lsp.buf.hover)
+  if not success then
+    print("No hover information available!")
+  end
+end
+
+local function show_signature_help()
+  local success, result = pcall(vim.lsp.buf.signature_help)
+  if not success then
+    print("No signature help available!")
+  end
+end
+
+local function find_references()
+  local success, result = pcall(vim.lsp.buf.references)
+  if not success then
+    print("No references found!")
+  end
+end
+
+local function rename_symbol()
+  local success, result = pcall(vim.lsp.buf.rename)
+  if not success then
+    print("Renaming failed!")
+  end
+end
+
+-- LSP mappings
+map('n', 'gd', go_to_definition, { noremap = true, silent = true })
+map('n', 'K', show_hover, { noremap = true, silent = true })
+map('n', '<leader>s', show_signature_help, { noremap = true, silent = true })
+map('n', '<leader>r', find_references, { noremap = true, silent = true })
+map('n', '<leader>n', rename_symbol, { noremap = true, silent = true })
+
+
+-- Scala-specific mappings for Metals
+--map("n", "<Leader>a", function() require("metals").import_all() end, opts)
+-- map("n", "<Leader>r", function() require("metals").import_remove_unused() end, opts)
+-- Load nvchad mappings
+require("nvchad.mappings")
