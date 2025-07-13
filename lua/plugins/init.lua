@@ -1,10 +1,10 @@
 return {
-    {
-    "nvim-neotest/nvim-nio",
-    lazy = true, -- Optionally add lazy loading if needed
-    },
   {
-  "stevearc/conform.nvim",
+    "nvim-neotest/nvim-nio",
+    lazy = true,
+  },
+  {
+    "stevearc/conform.nvim",
     opts = {
       formatters_by_ft = {
         lua = { "stylua" },
@@ -13,8 +13,23 @@ return {
         go = { "goimports", "gofmt" },
         sh = { "shfmt" },
         scala = { "scalafmt" },
+        javascript = { "prettier" },
+        typescript = { "prettier" },
+        javascriptreact = { "prettier" },
+        typescriptreact = { "prettier" },
       },
     },
+  },
+  {
+    "git@github.com:github/copilot.vim.git", -- ✅ Correct repo
+    ft = { "lua", "python" },                 -- ✅ Load only for Lua and Python
+    lazy = true,
+    config = function()
+      vim.cmd [[
+        imap <silent><script><expr> <C-J> copilot#Accept("\<CR>")
+        let g:copilot_no_tab_map = v:true
+      ]]
+    end,
   },
   {
     "neovim/nvim-lspconfig",
@@ -25,8 +40,8 @@ return {
   },
   {
     "nvim-tree/nvim-tree.lua",
-    requires = {
-      "nvim-tree/nvim-web-devicons", -- optional, for file icons
+    dependencies = {
+      "nvim-tree/nvim-web-devicons",
     },
     config = function()
       require("nvim-tree").setup {}
@@ -50,14 +65,12 @@ return {
         "go",
         "yamllint",
       },
-      highlight = {
-        enable = true, -- false will disable the whole extension
-      },
+      highlight = { enable = true },
     },
     lazy = true,
-    event = { "BufReadPre", "BufNewFile" }, -- Load when a file is opened
+    event = { "BufReadPre", "BufNewFile" },
   },
-  { import = "plugins.go" },
   { import = "plugins.dap-python" },
-  { import = "plugins.scala" },
+  { import = "plugins.dap-js" },
 }
+

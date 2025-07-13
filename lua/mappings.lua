@@ -1,8 +1,6 @@
 local map = vim.keymap.set
-local opts = { noremap = true, silent = true }
 --based config
 vim.opt.autoindent = true
-
 vim.opt.smartindent = true
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Size of an indent
@@ -10,10 +8,9 @@ vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 
-map("n", "<leader>e", ":NvimTreeToggle<CR>")
-map("n", ";", ":", { desc = "CMD enter command mode" })
-map("i", "jk", "<ESC>")
+vim.g.copilot_no_tab_map = true
 
+map("n", "<leader>e", ":NvimTreeToggle<CR>")
 -- Move lines up/down in Normal Mode
 map("n", "<A-Down>", ":m .+1<CR>", { desc = "Move line down" })
 map("n", "<A-j>", ":m .+1<CR>", { desc = "Move line down" })
@@ -98,9 +95,24 @@ map('n', '<leader>s', show_signature_help, { noremap = true, silent = true })
 map('n', '<leader>r', find_references, { noremap = true, silent = true })
 map('n', '<leader>n', rename_symbol, { noremap = true, silent = true })
 
+-- Better <C-y> mapping that doesn't produce artifacts
+vim.keymap.set('i', '<C-y>', function()
+  local copilot_keys = vim.fn['copilot#Accept']()
+  if copilot_keys ~= '' then
+    vim.api.nvim_feedkeys(copilot_keys, 'n', true)
+  end
+end, {
+  silent = true,
+  noremap = true,
+  desc = "Accept Copilot suggestion",
+})
 
--- Scala-specific mappings for Metals
---map("n", "<Leader>a", function() require("metals").import_all() end, opts)
--- map("n", "<Leader>r", function() require("metals").import_remove_unused() end, opts)
--- Load nvchad mappings
+-- Optional: Add escape sequence to clear suggestion when needed
+vim.keymap.set('i', '<C-e>', function()
+  if vim.fn['copilot#Visible']() == 1 then
+    vim.fn['copilot#Dismiss']()
+  end
+  return '<Esc>'
+end, { expr = true, noremap = true })
+
 require("nvchad.mappings")
