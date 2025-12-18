@@ -12,7 +12,6 @@ return {
         yaml = { "prettier" },
         go = { "goimports", "gofmt" },
         sh = { "shfmt" },
-        scala = { "scalafmt" },
         javascript = { "prettier" },
         typescript = { "prettier" },
         javascriptreact = { "prettier" },
@@ -71,5 +70,7 @@ return {
   },
   { import = "plugins.dap-python" },
   { import = "plugins.dap-js" },
+  { import = "plugins.go" },
+  { import = "plugins.rust" },
 }
 

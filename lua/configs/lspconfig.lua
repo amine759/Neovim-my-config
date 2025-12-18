@@ -4,9 +4,6 @@ local nvlsp = require("nvchad.configs.lspconfig")
 local on_attach = nvlsp.on_attach
 local on_init = nvlsp.on_init
 local capabilities = nvlsp.capabilities
-
--- Correct way to get lspconfig
-local lspconfig = require("lspconfig")
 local lsp = vim.lsp
 
 -- Servers with default config
