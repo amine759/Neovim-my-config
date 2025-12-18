@@ -63,7 +63,6 @@ return {
         "vim",
         "yaml",
         "go",
-        "yamllint",
       },
       highlight = { enable = true },
     },

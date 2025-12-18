@@ -1,43 +1,50 @@
--- load defaults i.e lua_lsp
-local configs = require("nvchad.configs.lspconfig")
+-- NvChad LSP defaults
+local nvlsp = require("nvchad.configs.lspconfig")
 
-local on_attach = configs.on_attach
-local on_init = configs.on_init
-local capabilities = configs.capabilities
+local on_attach = nvlsp.on_attach
+local on_init = nvlsp.on_init
+local capabilities = nvlsp.capabilities
 
-local lspconfig = require "lspconfig"
+-- Correct way to get lspconfig
+local lspconfig = require("lspconfig")
+local lsp = vim.lsp
 
+-- Servers with default config
 local servers = {
   "bashls",
   "cssls",
   "html",
   "jsonls",
   "pyright",
-  "somesass_ls",
   "ts_ls",
+  "rust_analyzer",
 }
-local nvlsp = require "nvchad.configs.lspconfig"
 
--- lsps with default config
-for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    on_attach = nvlsp.on_attach,
-    on_init = nvlsp.on_init,
-    capabilities = nvlsp.capabilities,
+
+for _, server in ipairs(servers) do
+  lsp.config[server] = {
+    on_attach = on_attach,
+    on_init = on_init,
+    capabilities = capabilities,
   }
+
+  lsp.enable(server)
 end
 
-lspconfig.lua_ls.setup {
+-- Lua LSP (special case)
+lsp.config.lua_ls = {
   on_attach = on_attach,
-  capabilities = capabilities,
   on_init = on_init,
+  capabilities = capabilities,
   settings = {
     Lua = {
       hint = { enable = true },
       telemetry = { enable = false },
       diagnostics = {
-        globals = { "bit", "vim", "it", "describe", "before_each", "after_each" },
+        globals = { "vim", "describe", "before_each", "after_each" },
       },
     },
   },
 }
+
+lsp.enable("lua_ls")

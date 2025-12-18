@@ -5,12 +5,16 @@ vim.opt.smartindent = true
 vim.opt.tabstop = 4 -- Number of spaces that a <Tab> in the file counts for
 vim.opt.shiftwidth = 4 -- Size of an indent
 vim.opt.expandtab = true -- Convert tabs to spaces
-vim.opt.clipboard = "unnamedplus"
 vim.opt.signcolumn = "yes"
 
 vim.g.copilot_no_tab_map = true
 
 map("n", "<leader>e", ":NvimTreeToggle<CR>")
+-- Telescope
+map("n", "<leader>ff", "<cmd>Telescope find_files<cr>", { desc = "Find files" })
+map("n", "<leader>fg", "<cmd>Telescope live_grep<cr>", { desc = "Live grep" })
+map("n", "<leader>fb", "<cmd>Telescope buffers<cr>", { desc = "Find buffers" })
+map("n", "<leader>fh", "<cmd>Telescope help_tags<cr>", { desc = "Help tags" })
 -- Move lines up/down in Normal Mode
 map("n", "<A-Down>", ":m .+1<CR>", { desc = "Move line down" })
 map("n", "<A-j>", ":m .+1<CR>", { desc = "Move line down" })
@@ -30,7 +34,6 @@ map("v", "<A-k>", ":m '<-2<CR>gv=gv", { desc = "Move line up" })
 map("n", "<A-Right>", "$", { desc = "Go to end of line" })
 map("n", "<A-Left>", "^", { desc = "Go to beginning of line" })
 -- Togglers
-map("n", "<leader>n", "<cmd>set nu!<CR>", { desc = "Toggle line number" })
 map("n", "<leader>ih", "<cmd>ToggleInlayHints<CR>", { desc = "Toggle inlay hints" })
 map("n", "<leader>ch", "<cmd>NvCheatsheet<CR>", { desc = "Toggle nvcheatsheet" })
 -- Term
@@ -114,5 +117,3 @@ vim.keymap.set('i', '<C-e>', function()
   end
   return '<Esc>'
 end, { expr = true, noremap = true })
-
-require("nvchad.mappings")
