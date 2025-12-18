@@ -5,7 +5,6 @@ local options = {
     yaml = { "prettier" },
     go = { "goimports", "gofmt" },
     sh = { "shfmt" },
-    scala = { "scalafmt" },
   },
   -- Enable format on save
   format_on_save = {
